@@ -2,6 +2,14 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import random
 
+
+class Item(BaseModel):
+    name: str
+    resume: str | None = 'N/A'
+    price: float
+    tax: float | None = 'N/A'
+
+
 app = FastAPI()
 
 
@@ -26,3 +34,6 @@ async def delete_random(lista: Lists):
     random.shuffle(lista)
     lista.pop()
     return lista
+@app.post('/item')
+async def create_item(item: Item):
+    return item
